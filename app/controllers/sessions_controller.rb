@@ -3,11 +3,9 @@ class SessionsController < ApplicationController
 	include SessionsHelper
 	
 	def new
-			
 	end
 
 	def create
-		# render 'new'
 		user = User.find_by(email: params[:session][:email])
 		if user && user.authenticate(params[:session][:password])
 			sign_in user
