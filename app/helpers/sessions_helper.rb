@@ -30,4 +30,17 @@ module SessionsHelper
 		self.current_user = nil
 
 	end
+
+	def store_location
+        session[:return_to] = request.url if request.get?
+	end
+
+	def redirect_back_or(user)
+		if session[:return_to]
+			redirect_to session[:return_to]
+			session.delete :return_to
+		else
+			redirect_to user
+		end
+	end
 end
