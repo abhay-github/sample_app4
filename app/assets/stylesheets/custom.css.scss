@@ -123,6 +123,7 @@ aside {
       display: block;
       margin-bottom: 3px;
       line-height: 1;
+      &.obscure{ color: gray;}
     }
     h1 {
       font-size: 1.4em;
@@ -130,6 +131,8 @@ aside {
       letter-spacing: -1px;
       margin-bottom: 3px;
       margin-top: 0px;
+
+      small{font-size:14px;}
     }
   }
 }

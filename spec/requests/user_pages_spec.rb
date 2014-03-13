@@ -71,6 +71,7 @@ describe "UserPages" do
 		before	{visit user_path user}
 		it { should have_title full_title(user.name) }
 		it { should have_content user.name }
+		it { should have_content "@#{user.username}" }
 
 		describe "microposts" do
 			it { should have_content m1.content }
