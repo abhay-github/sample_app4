@@ -6,16 +6,24 @@ class User < ActiveRecord::Base
 	has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower
+  	has_many :followers, through: :reverse_relationships, source: :follower
 
 
-	before_save	{ |user| user.email = user.email.downcase }
+  	before_validation { self.username.strip! }
+	before_save	do |user|
+		user.email = user.email.downcase
+		user.username = user.username.downcase
+	end
 	before_create :create_remember_token
 
 	validates :name, presence: true, length: {maximum: 50}
+
   	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+    
+    validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { without: /\s/,
+     			message: "cannot contain whitespaces" }
 
  	has_secure_password
 

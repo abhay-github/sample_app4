@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe User do
-	before	{ @user = User.new(name:"Example User", email:"user@example.com",
+	before	{ @user = User.new(name:"Example User", username: "exampleuser",email:"user@example.com",
 							password: "foobar", password_confirmation: "foobar") }
 
 	subject	{ @user }
 
 	it { should respond_to(:name) }
+	it { should respond_to(:username) }
 	it { should respond_to(:email) }
 	it { should respond_to(:password_digest) }
 	it { should respond_to(:password) }
@@ -43,6 +44,28 @@ describe User do
 
 	describe "when name is too long" do
 		before	{ @user.name = "a"*51 }
+
+		it { should_not be_valid }
+	end
+
+	describe "when username is not present" do
+		before	{ @user.username = " " }
+		it { should_not be_valid }
+	end
+
+	describe "when username has whitespaces" do
+		before	{ @user.username = "user name"}
+
+		it { should_not be_valid }
+
+		describe "but only in the beginning/end" do
+			before	{ @user.username = " username" }
+			it { should be_valid }
+		end
+	end
+
+	describe "when username is already taken" do
+		let!(:another_user) { FactoryGirl.create(:user, username: @user.username) }
 
 		it { should_not be_valid }
 	end
@@ -86,7 +109,7 @@ describe User do
 
   	describe "when password is not present" do
   		before do
-	    	@user = User.new(name: "Example User", email: "user@example.com",
+	    	@user = User.new(name: "Example User", username: "samplename", email: "user@example.com",
 	                     password: " ", password_confirmation: " ")
 	  	end
 	  	it { should_not be_valid }
