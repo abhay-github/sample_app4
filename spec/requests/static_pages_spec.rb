@@ -21,11 +21,13 @@ describe "StaticPages" do
 			  visit root_path
 			end
 
-			it "should render the user's feed" do
+			it "should render the user's feed with delete links" do
 				user.feed.each do |item|
 					expect(page).to have_selector("li##{item.id}", text: item.content)
+					expect(page).to have_link 'delete'
 				end
 			end
+
 
 			describe "follower/following counts" do
 				let(:other_user) { FactoryGirl.create(:user) }

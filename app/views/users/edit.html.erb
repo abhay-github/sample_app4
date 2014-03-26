@@ -22,6 +22,8 @@
       <%= f.password_field :password_confirmation %>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+
+      <button onclick="history.back(); return false;" class= "btn btn-danger btn-large pull-right">Back</button>
     <% end %>
 
     <%= gravatar_for @user %>

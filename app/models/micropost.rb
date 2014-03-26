@@ -6,6 +6,8 @@ class Micropost < ActiveRecord::Base
 	validates :content, presence: true, length: { maximum: 140 }
 	default_scope -> { order 'microposts.created_at DESC' }
 
+	# scope :recent, :conditions => ["created_at > ?", 2.weeks.ago]
+
 	def self.from_users_followed_by(user)
 		followed_user_ids = "SELECT followed_id FROM relationships WHERE
 							follower_id = :user_id"
