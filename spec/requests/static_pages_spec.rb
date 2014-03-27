@@ -14,6 +14,7 @@ describe "StaticPages" do
 
 		describe "for signed in users" do
 			let(:user) { FactoryGirl.create(:user) }
+			let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "lorem ipsum dolor") }
 			before do
 			  FactoryGirl.create(:micropost, user: user, content: "lorem ipsum")
 			  FactoryGirl.create(:micropost, user: user, content: "dolor sit amet")
@@ -24,10 +25,28 @@ describe "StaticPages" do
 			it "should render the user's feed with delete links" do
 				user.feed.each do |item|
 					expect(page).to have_selector("li##{item.id}", text: item.content)
-					expect(page).to have_link 'delete'
+					expect(page).to have_link('delete', href: micropost_path(item))
 				end
+
+				expect { click_link 'delete', href: micropost_path(m1) }.to change(Micropost, :count).by(-1)	
 			end
 
+			describe "after deleting a user's feed, it should not be visible" do
+				before { click_link 'delete', href: micropost_path(m1) }
+				it { should_not have_selector "li##{m1.id}" }
+			end
+
+			describe "rendering other user's feeds" do
+				let(:other_user) { FactoryGirl.create(:user) }
+				let!(:m2) { FactoryGirl.create(:micropost, user: other_user, content:"some waste content") }
+				before do
+					user.follow!(other_user)
+					visit root_path
+				end
+
+				it { should have_selector "li##{m2.id}", text: m2.content }
+				it { should_not have_link 'delete', href: micropost_path(m2) }
+			end
 
 			describe "follower/following counts" do
 				let(:other_user) { FactoryGirl.create(:user) }
