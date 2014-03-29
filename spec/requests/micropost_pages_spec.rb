@@ -54,22 +54,7 @@ describe "MicropostPages" do
 			end
 		end
 
-		describe "in reply to another user" do
-			let(:other_user) { FactoryGirl.create(:user) }
-			let(:my_follower) { FactoryGirl.create(:user) }
-			let!(:m1) { FactoryGirl.create(:micropost, user: user,
-						 content:"@#{other_user.username} a reply tweet to u") }
-			before do
-				my_follower.follow!(user)
-				click_link 'Sign out'
-				sign_in my_follower	
-			end
-
-			it "should not be visible to anyone else" do
-				expect(page).not_to have_selector("li##{m1.id}", text:"a reply tweet")
-			end
-
-		end
+		
 	end
 
 	describe "micropost destruction" do

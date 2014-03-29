@@ -188,6 +188,26 @@ describe User do
 					should include m
 				end
 			end
+
+			describe "feeds in reply to another user" do
+				let(:user_replied_to) { FactoryGirl.create(:user) }
+				let!(:m1) { FactoryGirl.create(:micropost, user: followed_user,
+							 content:"@#{user_replied_to.username} a reply tweet to u") }
+				
+
+				its(:feed) { should_not include m1 }
+
+				it "should be visible to poster" do
+					expect(followed_user.feed).to include m1
+				end
+
+				it "should be visible to the reply receiver" do
+					expect(user_replied_to.feed).to include m1
+				end
+
+				
+			end
+
 		end
 	end
 
