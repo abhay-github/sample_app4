@@ -15,4 +15,4 @@
 //= require bootstrap
 //= require turbolinks
 //= require bootstrap-maxlength
-//= require_tree .
+
