@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
 	has_many :microposts, dependent: :destroy
-	# has_many :reply_microposts, foreign_key: "in_reply_to", class_name: "Micropost"
+	has_many :messages, dependent: :destroy
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed
 	has_many :reverse_relationships, foreign_key: "followed_id",
