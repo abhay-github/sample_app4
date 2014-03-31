@@ -85,4 +85,18 @@ describe "MicropostPages" do
 		end
 
 	end
+
+	describe "reply links" do
+		let(:other_user) { FactoryGirl.create(:user) }
+		let!(:m1) { FactoryGirl.create(:micropost, user: other_user) }
+		let!(:m2) { FactoryGirl.create(:micropost, user: user) }
+
+		before do
+			user.follow!(other_user)
+			visit root_path
+		end
+
+		it { should_not have_selector "li##{m2.id} > a", text: "reply" }
+		it { should have_selector "li##{m1.id} > a", text: "reply" }
+	end
 end

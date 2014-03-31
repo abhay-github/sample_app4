@@ -10,5 +10,7 @@
 		Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
 	</span>
 	<%= render 'shared/delete_micropost', object: feed_item %>
-
+	<% unless current_user?(feed_item.user) %>
+		<a class="reply" data-username="<%= feed_item.user.username %>" >reply</a> 
+	<% end %>
 </li>
