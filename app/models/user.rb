@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
 	has_many :microposts, dependent: :destroy
 	has_many :messages, dependent: :destroy
+	has_many :received_msgs, class_name: "Message", dependent: :destroy, foreign_key: "receiver_id"
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed
 	has_many :reverse_relationships, foreign_key: "followed_id",
@@ -39,6 +40,10 @@ class User < ActiveRecord::Base
 
  	def User.hash(token)
  		Digest::SHA1.hexdigest(token.to_s)
+ 	end
+
+ 	def msg_feed
+ 		
  	end
 
  	def feed

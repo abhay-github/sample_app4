@@ -15,6 +15,7 @@ describe Message do
   	it { should respond_to :receiver }
   	it { should respond_to :content }
   	its(:user) { should eq user }
+  	its(:receiver) { should eq receiver }
 
   	describe "when user_id is not present" do
   		before { @message.user_id = " " }
@@ -30,4 +31,9 @@ describe Message do
   		before { @message.content = " " }
   		it { should_not be_valid }
   	end
+
+    describe "when content is too long" do
+      before { @message.content = "d @#{user.username} #{"a"*139}" }
+      it { should_not be_valid }
+    end
 end

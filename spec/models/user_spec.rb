@@ -23,6 +23,8 @@ describe User do
   	it { should respond_to(:follow!) }
   	it { should respond_to(:unfollow!) }
   	it { should respond_to(:following?) }
+  	it { should respond_to :messages }
+  	# it { should respond_to :msg_feed }
 
 	it { should be_valid }
 	it { should_not be_admin }
@@ -144,6 +146,40 @@ describe User do
 	describe "remember token" do
 		before	{ @user.save }
 		its(:remember_token) { should_not be_blank }
+	end
+
+	describe "message associations" do
+		before { @user.save }
+		let!(:receiver) { FactoryGirl.create(:user) }
+
+		let!(:older_msg) do
+			FactoryGirl.create(:message, user: @user, receiver: receiver, created_at: 1.day.ago)
+		end
+		let!(:newer_msg) do
+			FactoryGirl.create(:message, user: @user, receiver: receiver, created_at: 1.hour.ago)
+		end
+		let!(:rcvdMsgNew) do
+			FactoryGirl.create(:message, user: receiver, receiver: @user, created_at: 2.hour.ago)
+		end
+		let!(:rcvdMsgOld) do
+			FactoryGirl.create(:message, user: receiver, receiver: @user, created_at: 2.day.ago)
+		end
+
+		it "should have the right messages in the right order" do
+			expect(@user.messages.to_a).to eq [newer_msg, older_msg]
+			expect(@user.received_msgs.to_a).to eq [rcvdMsgNew, rcvdMsgOld]
+		end
+
+		it "should destroy the associated messages" do
+			messages = @user.messages.to_a
+			@user.destroy
+			expect(messages).not_to be_empty
+			messages.each do |msg|
+				expect(Message.where(id: msg.id)).to be_empty
+			end
+		end
+
+
 	end
 
 	describe "micropost associations" do
