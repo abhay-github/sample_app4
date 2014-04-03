@@ -12,6 +12,16 @@
       </section>
     </aside>
     <div class="span8">
+      <h3>Sent Messages</h3>
+      <ol class="messages">
+        <%= render @messages %>
+      </ol>
+
+      <h3>Received Messages</h3>   
+      <ol class="messages">
+        <%= render partial: 'messages/message', collection: @received_msgs %>
+      </ol>
+
       <h3>Micropost Feed</h3>
       <%= render 'shared/feed' %>
     </div>

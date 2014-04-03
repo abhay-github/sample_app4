@@ -2,6 +2,7 @@ namespace :db do
 	desc	"Fill database with sample data"
 	task populate: :environment do
 		make_users
+		make_messages
 		make_microposts
 		make_relationships
 	end
@@ -37,4 +38,17 @@ def make_relationships
 	followers = users[3..40]
 	followed_users.each { |followed| user.follow!(followed) }
 	followers.each { |follower| follower.follow!(user) }
+end
+
+def make_messages
+	users = User.all(limit: 6)
+	2.times do
+		
+		users.each do |user|
+			rcpnt = User.find(rand(1..6))
+			content = "@#{rcpnt.username} " + Faker::Lorem.sentence(3)
+			# content =  + content
+			user.messages.create!(content: content, receiver: rcpnt)
+		end
+	end
 end
