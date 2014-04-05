@@ -10,4 +10,10 @@ $(function(){
     	txtarea.focus();
     	txtarea.val('@' + uname);
     })
+
+    $("#showMsg").click(function(){
+        // $.ajax({url: "message/index", type: "GET"});
+        $.get("messages",{} , null, "script");
+        // alert('fired')
+    })
 });

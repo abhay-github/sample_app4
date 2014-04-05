@@ -1,0 +1,10 @@
+<li>
+	<%= link_to gravatar_for(rcvd_message.user), rcvd_message.user %>
+	<span class="user">
+		<%= link_to rcvd_message.user.name, rcvd_message.user %>
+	</span>
+	<span class="content"><%= wrap(rcvd_message.content) %></span>
+	<span class="timestamp">
+		Posted on <%= rcvd_message.created_at.to_time.strftime('%b %e \'%y at %l:%M %p') %>.
+	</span>
+</li>

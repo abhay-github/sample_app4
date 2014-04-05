@@ -19,7 +19,7 @@ class Micropost < ActiveRecord::Base
 	end
 
 	def check_if_reply
-		username = self.content[/\A@[\w+\-.]+/]
+		username = self.content[/\A@[\w\-.]+/]
 		if username
 			username = username[1..-1]
 			user_replied_to = User.find_by(username: username)

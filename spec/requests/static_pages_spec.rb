@@ -28,6 +28,7 @@ describe "StaticPages" do
 					FactoryGirl.create(:message, user: user, receiver: other_user)
 					FactoryGirl.create(:message, user: other_user, receiver: user)
 					visit root_path
+					click_button "Show Messages"
 				end
 
 
