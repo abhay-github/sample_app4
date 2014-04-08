@@ -221,6 +221,9 @@ input {
 
 /* microposts (and messages)*/
 
+div.home_content{
+  margin-top:40px;
+}
 .microposts, .messages {
   list-style: none;
   margin: 10px 0 0 0;

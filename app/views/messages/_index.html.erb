@@ -1,9 +1,10 @@
+<h3>Received Messages</h3>   
+<ol class="messages">
+  <%= render partial: 'messages/rcvd_message', collection: @received_msgs %>
+</ol>
+
 <h3>Sent Messages</h3>
 <ol class="messages">
   <%= render @messages %>
 </ol>
 
-<h3>Received Messages</h3>   
-<ol class="messages">
-  <%= render partial: 'messages/rcvd_message', collection: @received_msgs %>
-</ol>

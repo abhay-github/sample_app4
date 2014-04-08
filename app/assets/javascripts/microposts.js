@@ -12,8 +12,10 @@ $(function(){
     })
 
     $("#showMsg").click(function(){
-        // $.ajax({url: "message/index", type: "GET"});
         $.get("messages",{} , null, "script");
-        // alert('fired')
+    })
+
+    $("#showMcrpst").click(function(){
+        $.get('/',{} , null, "script");
     })
 });

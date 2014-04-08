@@ -13,11 +13,17 @@
     </aside>
     <div class="span8">
 
-      <button id="showMsg" class="btn btn-primary">Show Messages</button>
-      
+      <div class="btn-group" data-toggle="buttons-radio">
+        <button id="showMcrpst" type="button" class="btn btn-large <%= @viewMsgs ? '' : 'active' %>">Microposts</button>
+        <button id="showMsg" type="button" class="btn btn-large  <%= @viewMsgs ? 'active' : '' %>">Messages</button>
+      </div>
+
       <div class="home_content">
-        <h3>Micropost Feed</h3>
-        <%= render 'shared/feed' %>
+        <% if @viewMsgs %>
+          <%= render 'messages/index' %>
+        <% else %>
+          <%= render 'shared/feed' %>
+        <% end %>
       </div>
       
     </div>

@@ -1,20 +1,30 @@
 class MicropostsController < ApplicationController
 
 	include SessionsHelper
+	include MessagesHelper
 
 	before_action :signed_in_user
 	before_action :correct_user, only: :destroy
 
 	def create
-		@micropost = current_user.microposts.build(content: params[:micropost][:content])
-		if @micropost.save
-			flash[:success] = "Micropost created!"
-			redirect_to root_path
+		cntnt = params[:micropost][:content]
+		if cntnt.match(MSG_CONTENT_REGEX)
+			# handle the message creation
+			msg_create(cntnt)
 		else
-			# Please use this if any error may come with future version of rails
-			@feed_items = []
-			# @feed_items = current_user.feed.paginate(page: params[:page])
-			render 'static_pages/home'
+			# handle a micropost creation
+			@micropost = current_user.microposts.build(content: cntnt)
+			if @micropost.save
+				flash[:success] = "Micropost created!"
+				session[:viewMsgs] = false
+				redirect_to root_path
+			else
+				# Please use this if any error may come with future version of rails
+				@feed_items = []
+				# @feed_items = current_user.feed.paginate(page: params[:page])
+				render 'static_pages/home'
+			end
+
 		end
 	end
 
