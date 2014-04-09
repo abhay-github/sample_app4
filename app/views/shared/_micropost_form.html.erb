@@ -4,6 +4,4 @@
 		<%= f.text_area :content, placeholder: "Compose new micropost....", maxlength: 140 %>
 	</div>
 	<%= f.submit "Post", class: "btn btn-primary btn-large" %>
-	<%= debug @micropost if rails.env.development? %>
-	<%= debug @msg if rails.env.development? %>
 <% end %>
