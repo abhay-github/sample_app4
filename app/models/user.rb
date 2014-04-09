@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
 
  	def follow!(other_user)
  		self.relationships.create!(followed_id: other_user.id)
+ 		# send email to the other_user
+ 		UserMailer.follower_notification.deliver
  	end
 
  	def unfollow!(other_user)
