@@ -21,6 +21,11 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
+      <div class="checkboxDiv">
+        <%= f.check_box :follower_notification %>
+        <%= f.label :follower_notification, "Notify(via email) when someone follows me" %>
+      </div>
+      
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
 
       <button onclick="history.back(); return false;" class= "btn btn-danger btn-large pull-right">Back</button>

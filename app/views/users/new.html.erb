@@ -19,6 +19,11 @@
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
 
+			<div class="checkboxDiv">
+				<%= f.check_box :follower_notification %>
+				<%= f.label :follower_notification, "Notify(via email) when someone follows me" %>
+			</div>
+      
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 
 		<% end %>

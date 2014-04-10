@@ -1,14 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "alerts@chirrups.com"
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.user_mailer.follower_notification.subject
-  #
-  def follower_notification
-    @greeting = "Hi"
-
-    mail to: "abhayemailid@gmail.com", subject: "You got a new follower"
+  def follower_notification(user, follower)
+    @user = user
+    @follower = follower
+    mail to: user.email, subject: "You got a new follower"
   end
 end

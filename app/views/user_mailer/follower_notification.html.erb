@@ -1,0 +1,7 @@
+<p>Cool, <%= "@#{@follower.username}(#{@follower.name})" %> has started following your chirps.
+</p>
+<p>
+Visit your <%= link_to "home", root_url %> page to view latest chirps.	
+</p>
+
+<small style="font-size:11px">Visit your <%= link_to "settings", edit_user_url(@user) %> page to stop receiving follower-notifications</small>

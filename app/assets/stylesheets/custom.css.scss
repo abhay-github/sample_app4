@@ -199,6 +199,12 @@ input {
   @extend .error;
 }
 
+.checkboxDiv label{
+  display: inline-block;
+  vertical-align: sub;
+  margin-bottom: 20px;
+}
+
 
 
 /* Users index */
