@@ -24,7 +24,8 @@ describe User do
   	it { should respond_to(:unfollow!) }
   	it { should respond_to(:following?) }
   	it { should respond_to :messages }
-  	# it { should respond_to :msg_feed }
+  	it { should respond_to :password_reset_token }
+  	it { should respond_to :password_reset_sent_at }
 
 	it { should be_valid }
 	it { should_not be_admin }

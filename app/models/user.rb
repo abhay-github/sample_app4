@@ -42,10 +42,6 @@ class User < ActiveRecord::Base
  		Digest::SHA1.hexdigest(token.to_s)
  	end
 
- 	def msg_feed
- 		
- 	end
-
  	def feed
  		Micropost.from_users_followed_by(self)
  	end
@@ -61,6 +57,14 @@ class User < ActiveRecord::Base
 
  	def unfollow!(other_user)
  		self.relationships.find_by(followed_id: other_user.id).destroy
+ 	end
+
+ 	def send_password_reset
+ 		self.password_reset_token = SecureRandom.urlsafe_base64
+ 		self.password_reset_sent_at = Time.zone.now
+ 		self.save!(validate: false)
+ 		# raise self.password_reset_token.inspect
+ 		UserMailer.password_reset(self).deliver
  	end
 
  	private
