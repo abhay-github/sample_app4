@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe User do
-	before	{ @user = User.new(name:"Example User", username: "exampleuser",email:"user@example.com",
-							password: "foobar", password_confirmation: "foobar") }
+	before	{ @user = User.new(name:"Example User", username: "exampleuser",email:"user@example.com", activated_state: true, 
+					password: "foobar", password_confirmation: "foobar") }
 
 	subject	{ @user }
 
@@ -26,6 +26,9 @@ describe User do
   	it { should respond_to :messages }
   	it { should respond_to :password_reset_token }
   	it { should respond_to :password_reset_sent_at }
+  	it { should respond_to :activated_state }
+  	# use password_reset_token in generalized way for the below requirement
+  	# it { should respond_to :activation_token }
 
 	it { should be_valid }
 	it { should_not be_admin }

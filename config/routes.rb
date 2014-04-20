@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
   
+  match '/users/:id/activate/:password_reset_token', to: 'users#activate', via: 'get'
+  # get 'post/:id' => 'posts#show'
+
   resources :password_resets
   
   resources :users  do

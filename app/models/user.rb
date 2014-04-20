@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
 
 	validates :name, presence: true, length: {maximum: 50}
 
+	
+	scope :activated, -> { where(activated_state: true) }
+	# default_scope -> { where(activated_state: true) }
+
   	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   	VALID_USERNAME_REGEX = /\A[\w\-.]+\z/
 

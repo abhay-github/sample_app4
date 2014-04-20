@@ -63,6 +63,14 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def activate
+    @user = User.find(params[:id])
+    if @user.password_reset_token == params[:token]
+      @user.activated_state = true
+      @user.password_reset_token = ''
+    end
+  end
+
   private
 
 
