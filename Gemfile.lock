@@ -249,9 +249,11 @@ DEPENDENCIES
   guard-spork (= 1.5.0)
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
+  launchy
   letter_opener
   libnotify (= 0.8.0)
   pg (= 0.15.1)
+  pry
   rails (= 4.0.3)
   rails_12factor (= 0.0.2)
   rspec-rails (= 2.13.1)

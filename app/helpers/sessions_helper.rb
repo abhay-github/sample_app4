@@ -29,7 +29,6 @@ module SessionsHelper
 		cookies.delete(:remember_token)
 		session.delete(:viewMsgs)
 		self.current_user = nil
-
 	end
 
 	def store_location

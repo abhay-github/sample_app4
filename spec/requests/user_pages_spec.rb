@@ -166,10 +166,23 @@ describe "UserPages" do
 			describe "after saving a user" do
 				let(:user) { User.find_by(email: "user@example.com") }
 				before	{ click_button submit }
-				it { should have_title user.name }
-				it { should have_selector 'div.alert.alert-success', text: 'Welcome' }
-				it { should have_link 'Sign out' }
-				# it { should have_selector 'div.alert', text: 'please confirm your signup by clicking confirmation link in your mailbox' }
+				it { should have_content 'confirm your signup by clicking confirmation link in your mailbox' }
+				it { last_email.to.should include(user.email) }
+				it "should not allow user in without activating" do
+					user.password = "foobar"
+					sign_in(user)
+					expect(page).to have_content "confirm your signup"
+				end
+
+				describe "activating user on hitting correct url" do
+					before do
+						visit user_activate_path(user.id, user.password_reset_token)
+						user.password = "foobar"
+						sign_in(user)
+					end
+					it { should have_link 'Sign out' }
+					
+				end
 			end
 		end
 	end
