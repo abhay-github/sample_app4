@@ -4,8 +4,8 @@
   <h2>
     Start a conversation, explore your interests.
   </h2>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 
-  <h3>Welcome!</h3>
 <p>Hi and welcome to Chirrups. This is basically a website built upon the resulting application from following Michael Hartl's tutorial at http://railstutorial.org/book.</p>
 
 <h3>What's been added?</h3>
@@ -22,9 +22,7 @@
 </ul>
 </p>
 <h3>Show me the codes!</h3>
-<p>If you came here to see how far this application has gone from the original version, please visit . If you're here besides that, why not sign up ?</p>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+<p>If you came here to see how far this application has gone from the original version, please visit <br/> <a href="https://github.com/abhay-github/sample_app4/compare/original-version...master" class="btn btn-danger btn-large">here</a> </p>
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
