@@ -6,6 +6,16 @@ class MicropostsController < ApplicationController
 	before_action :signed_in_user
 	before_action :correct_user, only: :destroy
 
+	def index
+		srch = params[:search]
+		if srch
+			@micropost = current_user.microposts.build()
+
+			@microposts = Micropost.joins(:user).where("users.name LIKE ? OR users.username LIKE ? OR microposts.content LIKE ?",
+			 		"%#{srch}%", "%#{srch}%", "%#{srch}%")
+		end
+	end
+
 	def create
 		cntnt = params[:micropost][:content]
 		if cntnt.match(MSG_CONTENT_REGEX)

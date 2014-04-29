@@ -15,7 +15,6 @@ describe "MicropostPages" do
 		  visit root_path
 		end
 
-
 		it { should have_content "#{user.microposts.count} microposts" }
 	end
 
@@ -98,5 +97,29 @@ describe "MicropostPages" do
 
 		it { should_not have_selector "li##{m2.id} > a", text: "reply" }
 		it { should have_selector "li##{m1.id} > a", text: "reply" }
+	end
+
+	describe "micropost searches" do
+		let(:other_user) { FactoryGirl.create(:user) }
+		before do
+			3.times {|i| FactoryGirl.create(:micropost, user: user, content: "content_#{i}") }
+			FactoryGirl.create(:micropost, user: other_user, content: "lorem ipsum #{user.name}")
+			FactoryGirl.create(:micropost, user: other_user)
+			fill_in "search", with: user.name[2..-1]
+			click_button "srch_btn"
+		end
+		3.times do |i|
+			it { should have_content user.microposts.find(i+1).content }	
+		end
+
+		# note below why using first, last in reverse way
+		it { should have_content other_user.microposts.last.content }
+		it { should_not have_content other_user.microposts.first.content }
+
+		it "should show sorry msg when no results found" do
+			fill_in "search", with: "no_result_string"
+			click_button "srch_btn"
+			expect(page).to have_content "sorry"
+		end
 	end
 end

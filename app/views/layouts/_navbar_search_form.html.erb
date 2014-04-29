@@ -1,0 +1,6 @@
+<%= form_tag microposts_path, method: :get, class: "navbar-search form-search" do %>
+	<%= text_field_tag "search", params[:search], placeholder: "Search microposts", class: "search-query #{params[:search] ? 'focused' : ''}"  %>
+	<%= button_tag(value: "srch_btn") do %>
+		<%= content_tag(:i, "", class: "icon-search") %>
+	<% end %>
+<% end %>

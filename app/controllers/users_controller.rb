@@ -7,7 +7,13 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    if params[:search_text]
+        srch = "%#{params[:search_text]}%"
+        @users = User.where("name LIKE ? OR username LIKE ?", srch, srch).load.paginate(page: params[:page])
+    else
+        @users = User.paginate(page: params[:page])  
+    end
+
   end
 
   def new

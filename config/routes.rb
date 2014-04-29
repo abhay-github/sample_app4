@@ -11,7 +11,7 @@ SampleApp::Application.routes.draw do
     end
   end
   resources :sessions, only: [:create, :destroy, :new]
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts, only: [:index, :create, :destroy]
   resources :messages,  only: [:create, :destroy, :index]
   resources :relationships, only: [:create, :destroy]
 

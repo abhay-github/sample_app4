@@ -53,6 +53,21 @@ describe "UserPages" do
 			end	
 		end
 		
+		describe "search field" do
+			before do
+				fill_in "search_text",	with: user.name[2..-1]
+				click_button "search"
+			end
+
+			it { should have_content user.name }
+			
+			it "should display sorry when no users found" do
+				fill_in "search_text",	with: "non_exisiting_user"
+				click_button "search"
+				expect(page).to have_content "Sorry"
+			end
+			# it { save_and_open_page }
+		end
 
 	end
 

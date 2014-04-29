@@ -1,0 +1,20 @@
+<%= javascript_include_tag("microposts.js") %>
+<div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+    	<div class="well center">
+    	 	<h3 class="res">Results for  <b><%= params[:search] %></b></h3>
+	 	</div>
+	 	<% if @microposts.any? %>
+			<ol class="microposts">
+				<%= render partial: 'shared/feed_item', collection: @microposts %>
+	      	</ol>
+		<% else %>      
+			<p>sorry no items match your search.</p>
+		<% end %>
+    </div>
+</div>
